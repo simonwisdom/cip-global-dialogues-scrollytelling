@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public",
+    "start": "sirv public --host 0.0.0.0",
     "deploy": "gh-pages -d public"
   },
   "author": "Ahmad Barclay",
