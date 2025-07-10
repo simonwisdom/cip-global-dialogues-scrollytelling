@@ -17,9 +17,8 @@ function serve() {
 	return {
 		writeBundle() {
 			if (server) return;
-			server = require('child_process').spawn('npx', ['sirv-cli', 'public', '--dev'], {
-				stdio: ['ignore', 'inherit', 'inherit'],
-				shell: true
+			server = require('child_process').spawn('npx', ['sirv-cli', 'public', '--dev', '--host', '0.0.0.0', '--single'], {
+				stdio: ['ignore', 'inherit', 'inherit']
 			});
 
 			process.on('SIGTERM', toExit);
@@ -36,6 +35,14 @@ export default [
 			format: 'iife',
 			name: 'app',
 			file: 'public/build/bundle.js'
+		},
+		onwarn(warning, warn) {
+			// Skip certain warnings
+			if (warning.code === 'CIRCULAR_DEPENDENCY' && warning.message.includes('node_modules/d3-')) {
+				return;
+			}
+			// Use default for everything else
+			warn(warning);
 		},
 		plugins: [
 			svelte({
@@ -77,6 +84,14 @@ export default [
 			format: 'iife',
 			name: 'app',
 			file: 'public/build/bundle.legacy.js'
+		},
+		onwarn(warning, warn) {
+			// Skip certain warnings
+			if (warning.code === 'CIRCULAR_DEPENDENCY' && warning.message.includes('node_modules/d3-')) {
+				return;
+			}
+			// Use default for everything else
+			warn(warning);
 		},
 		plugins: [
 			svelte({

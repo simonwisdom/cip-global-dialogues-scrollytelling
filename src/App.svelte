@@ -3,14 +3,13 @@
 	import { setContext, onMount } from "svelte";
 	import { getMotion, setColors } from "./utils.js";
 	import { themes } from "./config.js";
-	import ONSHeader from "./layout/ONSHeader.svelte";
-	import ONSFooter from "./layout/ONSFooter.svelte";
 	import Header from "./layout/Header.svelte";
 	import Section from "./layout/Section.svelte";
 	import Media from "./layout/Media.svelte";
 	import Scroller from "./layout/Scroller.svelte";
 	import Filler from "./layout/Filler.svelte";
 	import Divider from "./layout/Divider.svelte";
+	import ScenarioHeader from "./layout/ScenarioHeader.svelte";
 	import Toggle from "./ui/Toggle.svelte";
 	import Arrow from "./ui/Arrow.svelte";
 	import Em from "./ui/Em.svelte";
@@ -113,7 +112,6 @@
 
 </script>
 
-<ONSHeader filled={true} center={false} />
 
 <Header bgcolor="#206095" bgfixed={true} theme="dark" center={false} short={true}>
 	<h1>Human, or Not?</h1>
@@ -128,37 +126,69 @@
 	</div>
 </Header>
 
-<!-- VIGNETTE 1: SOLIPSISM -->
-<Section>
-	<h2>The Rise of Solipsism</h2>
+<!-- SCENARIO 1: SOLIPSISM -->
+<Filler theme="dark" short={true}>
+	<ScenarioHeader 
+		theme="dark"
+		number={1} 
+		title="The Rise of Solipsism"
+		subtitle="When consciousness becomes a matter of doubt"
+	/>
+</Filler>
+
+<Section theme="dark">
 	<p>
-		Loads of solipsism. AI companies incentivised to not allow consciousness and spread doubt about this. Lots of people doubting others exist.
+		In a world where AI mimics human behavior with uncanny precision, a disturbing trend emerges: widespread doubt about the consciousness of others. AI companies, incentivized to blur the lines, spread uncertainty about what truly constitutes awareness.
 	</p>
-	<div class="interactive-placeholder" style="height: 400px; background: #282c34; border-radius: 5px;">
+	<div class="interactive-placeholder" style="height: 400px; background: #1a1a1a; border-radius: 5px;">
 		<SolipsismGraph />
 	</div>
 </Section>
 
-<Divider />
+<!-- Transition to next scenario -->
+<Filler theme="light" short={true}>
+	<div style="text-align: center;">
+		<p style="font-size: 1.2em; opacity: 0.7;">But doubt breeds strange behaviors...</p>
+		<Arrow {animation}>Continue</Arrow>
+	</div>
+</Filler>
 
-<!-- VIGNETTE 2: INEFFICIENCY -->
+<!-- SCENARIO 2: INEFFICIENCY -->
+<ScenarioHeader 
+	number={2} 
+	title="The Performance of Inefficiency"
+	subtitle="When being human means being deliberately flawed"
+/>
+
 <Section>
-	<h2>The Performance of Inefficiency</h2>
 	<p>
-		People trying to appear slower / dumbing down in order to be more obviously human. This would be wild in eg dating or medicine.
+		In response to AI's perfection, humans begin performing their humanity through deliberate inefficiency. Typos become badges of authenticity. Doctors pause unnecessarily. Dating profiles boast about their poor math skills.
 	</p>
 	<div class="interactive-placeholder" style="height: 200px; background: #F5F5DC; border-radius: 5px;">
 		<TypingAnimation />
 	</div>
 </Section>
 
-<Divider />
+<!-- Transition -->
+<Filler theme="lightblue" short={true}>
+	<div style="text-align: center;">
+		<p style="font-size: 1.2em; opacity: 0.7;">Performance becomes the new authenticity...</p>
+	</div>
+</Filler>
 
-<!-- VIGNETTE 3: PERFORMATIVE CONSCIOUSNESS -->
+<!-- SCENARIO 3: PERFORMATIVE CONSCIOUSNESS -->
+<ScenarioHeader 
+	theme="lightblue"
+	number={3} 
+	title="Performative Consciousness"
+	subtitle="When awareness becomes a theatrical display"
+	color="#206095"
+/>
+
 <Scroller {threshold} bind:id={id['consciousness']} splitscreen={true}>
 	<div slot="background">
-		<figure class="height-full" style="background: #f0f0f0;">
-			<div class="chart-container">
+		<figure class="height-full" style="background: #e8f0f7;">
+			<div class="chart-container" style="background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
 				<ScatterChart
 					data={chartData}
 					xKey="x" yKey="y" zKey="group"
@@ -175,9 +205,8 @@
 	<div slot="foreground">
 		<section data-id="step1">
 			<div class="col-medium">
-				<h2>Performative Consciousness</h2>
 				<p>
-					Initially, the link between asking deep questions and being seen as conscious is weak and affects only a few.
+					Initially, the link between asking deep questions and being seen as conscious is weak and affects only a few early adopters.
 				</p>
 			</div>
 		</section>
@@ -198,14 +227,24 @@
 	</div>
 </Scroller>
 
+<!-- Transition -->
+<Filler short={true}>
+	<div style="text-align: center;">
+		<p style="font-size: 1.2em; opacity: 0.7;">If consciousness can be performed, what about empathy?</p>
+	</div>
+</Filler>
 
-<Divider />
+<!-- SCENARIO 4: EMPATHY OLYMPICS -->
+<ScenarioHeader 
+	number={4} 
+	title="The Empathy Olympics"
+	subtitle="Competitive compassion in the age of AI"
+/>
 
-<!-- VIGNETTE 4: EMPATHY OLYMPICS -->
 <Scroller {threshold} bind:id={id['empathy']} splitscreen={true}>
 	<div slot="background">
-		<figure class="height-full" style="background: #FFC0CB;">
-			<div class="chart-container">
+		<figure class="height-full" style="background: #f0e5ff;">
+			<div class="chart-container" style="background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
 				<BarChart
 					data={empathyData}
 					xKey="score" yKey="name"
@@ -222,9 +261,8 @@
 	<div slot="foreground">
 		<section data-id="start">
 			<div class="col-medium">
-				<h2>The Empathy Olympics</h2>
 				<p>
-					In a world seeking uniquely human traits, empathy becomes a competitive sport. Humans and AIs are pitted against each other.
+					In a world desperately seeking uniquely human traits, empathy becomes a competitive sport. Humans and AIs are pitted against each other in tests of compassion.
 				</p>
 			</div>
 		</section>
@@ -245,34 +283,79 @@
 	</div>
 </Scroller>
 
-<Divider />
+<!-- Transition -->
+<Filler theme="dark" short={true}>
+	<div style="text-align: center;">
+		<p style="font-size: 1.2em; opacity: 0.7;">Perhaps we'll find meaning in what can't be measured...</p>
+	</div>
+</Filler>
 
-<!-- VIGNETTE 5: NEO-ROMANTICISM -->
-<Section>
-	<h2>Neo-Romanticism</h2>
-	<p>
-		Or we all get really romantic because it's the only thing we all agree we can't delegate to AI
+<!-- SCENARIO 5: NEO-ROMANTICISM -->
+<div style="background: linear-gradient(to bottom, #1a0000, #4a0000); min-height: 70vh; display: flex; align-items: center;">
+	<ScenarioHeader 
+		theme="dark"
+		number={5} 
+		title="Neo-Romanticism"
+		subtitle="Finding humanity in the ineffable"
+		color="#ffcccc"
+	/>
+</div>
+
+<Section theme="dark" style="background: #2a0000;">
+	<p style="color: #ffcccc;">
+		In response to AI's encroachment, humanity embraces what can't be quantified: raw emotion, spontaneous beauty, irrational love. We become more romantic than ever, cherishing the messy, unpredictable aspects of being human.
 	</p>
-	<div class="interactive-placeholder" style="height: 400px; background: #8B0000; border-radius: 5px;">
+	<div class="interactive-placeholder" style="height: 400px; background: #4a0000; border-radius: 5px;">
 		<ImageGallery />
 	</div>
 </Section>
 
-<Divider />
+<!-- Transition -->
+<Filler short={true}>
+	<div style="text-align: center;">
+		<p style="font-size: 1.2em; opacity: 0.7;">But how do we even test for consciousness anymore?</p>
+	</div>
+</Filler>
 
-<!-- VIGNETTE 6: HUMAN CONSCIOUSNESS TEST -->
-<Section>
-	<h2>The Human Consciousness Test</h2>
+<!-- SCENARIO 6: HUMAN CONSCIOUSNESS TEST -->
+<ScenarioHeader 
+	theme="lightblue"
+	number={6} 
+	title="The Human Consciousness Test"
+	subtitle="When humans must prove their own awareness"
+	color="#206095"
+/>
+
+<Section theme="lightblue">
 	<p>
-		Survey answers show 6 areas that people are thinking about how to know if an AI is conscious. What if we ask humans these same questoins - would they be regarded as conscious by these same tests?
+		Research reveals six criteria people use to determine AI consciousness. But here's the twist: when humans take these same tests, many fail to meet their own standards. Have we set the bar so high that we've excluded ourselves?
 	</p>
-	<div class="interactive-placeholder" style="height: 400px; background: #E6F0FF; border-radius: 5px;">
+	<div class="interactive-placeholder" style="height: 400px; background: #E6F0FF; border: 2px solid #206095; border-radius: 5px;">
 		<ConsciousnessQuiz />
 	</div>
 </Section>
 
+<!-- Conclusion -->
+<Filler theme="dark">
+	<div style="text-align: center; max-width: 600px; margin: 0 auto;">
+		<h2>What Makes Us Human?</h2>
+		<p style="font-size: 1.2em; margin: 20px 0;">
+			In our quest to distinguish ourselves from artificial intelligence, we've discovered something profound: humanity isn't found in perfection or performance, but in our contradictions, our doubts, and our capacity to question what consciousness truly means.
+		</p>
+		<p style="opacity: 0.8;">
+			Perhaps the most human thing of all is wondering whether we're human enough.
+		</p>
+	</div>
+</Filler>
 
-<ONSFooter />
+
+<!-- Custom Footer -->
+<Filler theme="dark" short={true}>
+	<div style="text-align: center; padding: 40px 0;">
+		<p style="margin-bottom: 10px;">Human, or Not? © 2025</p>
+		<p style="font-size: 0.9em; opacity: 0.8;">An exploration of consciousness in the age of AI</p>
+	</div>
+</Filler>
 
 <style>
 	/* Styles specific to elements within the demo */
@@ -291,5 +374,21 @@
 		justify-content: center;
 		background: white;
 		border-radius: 5px;
+	}
+	
+	/* Custom styles for scenario transitions */
+	:global(section[style*="background: #2a0000"]) {
+		background: #2a0000 !important;
+		padding: 60px 0;
+	}
+	
+	:global(.scenario-header) {
+		position: relative;
+		z-index: 10;
+	}
+	
+	/* Ensure proper spacing between scenarios */
+	:global(.height-full) {
+		min-height: 100vh;
 	}
 </style>
