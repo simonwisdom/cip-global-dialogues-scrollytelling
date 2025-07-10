@@ -20,6 +20,7 @@
 	import TypingAnimation from "./vignettes/TypingAnimation.svelte";
 	import ImageGallery from "./vignettes/ImageGallery.svelte";
 	import ConsciousnessQuiz from "./vignettes/ConsciousnessQuiz.svelte";
+	import ProfessionCard from './vignettes/ProfessionCard.svelte';
 
 	// CORE CONFIG (COLOUR THEMES)
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
@@ -37,6 +38,108 @@
 	onMount(() => {
 		idPrev = {...id};
 	});
+
+	// DATA FOR PROFESSIONS SCENARIO
+	const professions = [
+		{
+			id: 'journalism',
+			name: 'Journalism',
+			human: {
+				title: 'Human-Led Reporting',
+				story: 'Reporters focus on deep, investigative work, building trust through on-the-ground presence and nuanced storytelling.',
+				image: 'img/section2/journalism_strong_human_presence.webp'
+			},
+			ai: {
+				title: 'AI-Generated News',
+				story: 'Algorithms generate news reports instantly, covering vast amounts of data with unparalleled speed and breadth.',
+				image: 'img/section2/journalism_full_ai_automation.webp'
+			}
+		},
+		{
+			id: 'politics',
+			name: 'Politics',
+			human: {
+				title: 'Community Governance',
+				story: 'Politicians engage in local town halls, making decisions based on direct constituent feedback and personal charisma.',
+				image: 'img/section2/politics_strong_human_presence.webp'
+			},
+			ai: {
+				title: 'Algorithmic Policy',
+				story: 'AI analyzes societal data to propose optimal policies, removing human bias and emotional rhetoric from governance.',
+				image: 'img/section2/politics_full_ai_automation.webp'
+			}
+		},
+		{
+			id: 'therapy',
+			name: 'Therapy',
+			human: {
+				title: 'Empathetic Counsel',
+				story: 'Therapists provide a human connection, using intuition and shared experience to guide patients through complex emotions.',
+				image: 'img/section2/therapy_strong_human_presence.webp'
+			},
+			ai: {
+				title: 'Data-Driven Support',
+				story: 'AI counselors offer 24/7 access, using data from millions of sessions to provide evidence-based cognitive support.',
+				image: 'img/section2/therapy_full_ai_automation.webp'
+			}
+		},
+		{
+			id: 'food-service',
+			name: 'Food Service',
+			human: {
+				title: 'Artisanal Dining',
+				story: 'Chefs and servers create unique, personal dining experiences where hospitality and craft are the main ingredients.',
+				image: 'img/section2/food service_strong_human_presence.webp'
+			},
+			ai: {
+				title: 'Automated Sustenance',
+				story: 'Robotic kitchens prepare nutritionally optimized meals delivered with maximum efficiency, freeing humans from culinary labor.',
+				image: 'img/section2/food service_full_ai_automation.webp'
+			}
+		},
+		{
+			id: 'transportation',
+			name: 'Transportation',
+			human: {
+				title: 'The Open Road',
+				story: 'Human drivers navigate the world, offering personal service and the flexibility to go off the beaten path.',
+				image: 'img/section2/transportation_strong_human_presence.webp'
+			},
+			ai: {
+				title: 'Seamless Transit Networks',
+				story: 'AI-controlled vehicles optimize traffic flow, eliminating accidents and making commutes faster and more predictable.',
+				image: 'img/section2/transportation_full_ai_automation.webp'
+			}
+		},
+		{
+			id: 'education',
+			name: 'Education',
+			human: {
+				title: 'Mentorship & Discovery',
+				story: 'Teachers inspire curiosity and critical thinking, mentoring students through collaborative, in-person discovery.',
+				image: 'img/section2/education_strong_human_presence.webp'
+			},
+			ai: {
+				title: 'Personalized Learning',
+				story: 'AI tutors adapt to each student\'s pace and style, delivering a perfectly customized curriculum for optimal knowledge retention.',
+				image: 'img/section2/education_full_ai_automation.webp'
+			}
+		},
+		{
+			id: 'healthcare',
+			name: 'Healthcare',
+			human: {
+				title: 'The Healing Touch',
+				story: 'Doctors and nurses provide compassionate bedside care, making complex diagnoses based on experience and human intuition.',
+				image: 'img/section2/healthcare_strong_human_presence.webp'
+			},
+			ai: {
+				title: 'Precision Medicine',
+				story: 'AI analyzes genetic and lifestyle data to predict illnesses and prescribe treatments with superhuman accuracy.',
+				image: 'img/section2/healthcare_full_ai_automation.webp'
+			}
+		}
+	];
 
 	// VIGNETTE 3: PERFORMATIVE CONSCIOUSNESS STATE
 	let chartData = [];
@@ -114,7 +217,7 @@
 
 
 <Header bgcolor="#206095" bgfixed={true} theme="dark" center={false} short={true}>
-	<h1>Human, or Not?</h1>
+	<h1>What makes us human?</h1>
 	<p class="text-big" style="margin-top: 5px">
 		Exploring consciousness in the age of AI.
 	</p>
@@ -153,19 +256,25 @@
 	</div>
 </Filler>
 
-<!-- SCENARIO 2: INEFFICIENCY -->
+<!-- SCENARIO 2: DIVERGENT FUTURES -->
 <ScenarioHeader 
 	number={2} 
-	title="The Performance of Inefficiency"
-	subtitle="When being human means being deliberately flawed"
+	title="Divergent Futures"
+	subtitle="Human-Centric or AI-Automated? You decide."
 />
 
 <Section>
-	<p>
-		In response to AI's perfection, humans begin performing their humanity through deliberate inefficiency. Typos become badges of authenticity. Doctors pause unnecessarily. Dating profiles boast about their poor math skills.
-	</p>
-	<div class="interactive-placeholder" style="height: 200px; background: #F5F5DC; border-radius: 5px;">
-		<TypingAnimation />
+	<div class="col-medium">
+		<p>
+			As AI capabilities grow, society faces a choice. Will we double down on human skills, or embrace automation?
+		</p>
+			<p>Survey results show that people have different opinions about where AI is appropriate.</p>
+		<h3 style="text-align: center; margin: 30px 0;">Which future do you want?</h3>
+	</div>
+	<div class="professions-grid">
+		{#each professions as profession (profession.id)}
+			<ProfessionCard {profession} />
+		{/each}
 	</div>
 </Section>
 
@@ -262,21 +371,21 @@
 		<section data-id="start">
 			<div class="col-medium">
 				<p>
-					In a world desperately seeking uniquely human traits, empathy becomes a competitive sport. Humans and AIs are pitted against each other in tests of compassion.
+					In a world desperately seeking uniquely human traits, empathy becomes a competitive sport. Humans start to compete against each other in tests of compassion.
 				</p>
 			</div>
 		</section>
 		<section data-id="scenario1">
 			<div class="col-medium">
 				<p>
-					In the first test, responding to simulated emotional distress, the AI's speed and logical assessment give it an edge.
+					It's common for people to feign empathy in order to be seen as more human.
 				</p>
 			</div>
 		</section>
 		<section data-id="scenario2">
 			<div class="col-medium">
 				<p>
-					But in a surprise real-world event, a human contestant's genuine, unprompted act of compassion wins the day, highlighting a quality the AIs could only simulate.
+					This can become exhausting, and some people decide to stop pretending, or start to question whether they are human at all.
 				</p>
 			</div>
 		</section>
@@ -348,12 +457,49 @@
 	</div>
 </Filler>
 
+<!-- CIP Challenge Information -->
+<div style="
+	padding: 60px 20px;
+	background-image: url('https://images.squarespace-cdn.com/content/v1/631d02b2dfa9482a32db47ec/28183ac8-8a37-4911-a363-e77be3792ff6/global+dialogues+image.png?format=1500w');
+	background-size: cover;
+	background-position: center;
+	text-align: center;
+">
+	<div style="
+		max-width: 600px; 
+		margin: 0 auto; 
+		background: rgba(0,0,0,0.5); 
+		padding: 30px; 
+		border-radius: 10px;
+		color: white;
+		font-size: 1em;
+	">
+		<a href="https://www.cip.org/" target="_blank" rel="noopener noreferrer" style="display: block; margin-bottom: 20px;">
+			<img 
+				src="https://images.squarespace-cdn.com/content/v1/631d02b2dfa9482a32db47ec/6590d845-8b5d-46f0-bc87-25416e6b40c4/HS409+%E2%80%93%C2%A0CIP+Logo_AW_White.png?format=1500w" 
+				alt="Collective Intelligence Project Logo" 
+				style="max-width: 200px; height: auto; margin: 0 auto;"
+			>
+		</a>
+		<p style="margin-bottom: 20px;">
+			This scrollytelling experience is an entry for the 
+			<a href="https://www.cip.org/challenge" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">Global Dialogues Challenge</a> 
+			by the Collective Intelligence Project.
+		</p>
+		<p>
+			<strong>Contributions:</strong> Simon Wisdom, Bridget Harris, and Christopher Ackerman.
+		</p>
+		<p>July 2025</p>
+	</div>
+</div>
+
 
 <!-- Custom Footer -->
 <Filler theme="dark" short={true}>
 	<div style="text-align: center; padding: 40px 0;">
-		<p style="margin-bottom: 10px;">Human, or Not? © 2025</p>
+		<p style="margin-bottom: 10px;">What makes us human? © 2025</p>
 		<p style="font-size: 0.9em; opacity: 0.8;">An exploration of consciousness in the age of AI</p>
+		<p>Scrollytelling template adapted from <a href="https://github.com/ONSvisual/svelte-scrolly" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">ONSvisual/svelte-scrolly</a></p>
 	</div>
 </Filler>
 
@@ -376,6 +522,13 @@
 		border-radius: 5px;
 	}
 	
+	.professions-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+		gap: 30px;
+		padding: 40px 0;
+	}
+
 	/* Custom styles for scenario transitions */
 	:global(section[style*="background: #2a0000"]) {
 		background: #2a0000 !important;
